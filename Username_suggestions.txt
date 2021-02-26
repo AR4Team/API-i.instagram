@@ -1,0 +1,19 @@
+    Function Username_suggestions(Email As String, Name As String) As String
+        Dim RestClient As New RestClient("https://i.instagram.com/")
+        Dim RestRequest As New RestRequest("api/v1/accounts/username_suggestions/", Method.POST)
+        RestClient.UserAgent = "Instagram 172.0.0.21.123 Android (25/7.1.2; 192dpi; 720x1280; google; G011A; G011A; qcom; en_US; 269790795)"
+        RestClient.AddDefaultHeader("X-IG-Connection-Type", "WIFI")
+        RestClient.AddDefaultHeader("X-IG-Capabilities", "3brTvx8=")
+        RestClient.AddDefaultHeader("Accept-Language", "en-US")
+        RestClient.AddDefaultHeader("X-MID", "YDieZAABAAFQca-B7sAgwxOVyIHu")
+        RestClient.AddDefaultHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+        RestClient.AddDefaultHeader("Accept-Encoding", "gzip, deflate")
+        RestClient.AddDefaultHeader("Host", "i.instagram.com")
+        RestRequest.AddCookie("mid", "YDieZAABAAFQca-B7sAgwxOVyIHu")
+        RestRequest.AddCookie("csrftoken", "eFRetGZLv7pm0N73CnbRnDONFc95Bg9X")
+        RestRequest.AddParameter("", "signed_body=SIGNATURE.{""phone_id"":""c7f67c11-f472-49fa-a2f2-58fd6e81cd65"",""_csrftoken"":""eFRetGZLv7pm0N73CnbRnDONFc95Bg9X"",""guid"":""87a02318-7663-4231-ad8c-9f51a1b0a0b9"",""name"":""" + Name + """,""device_id"":""android-b994ff2e09c9ff83"",""email"":""" + Email + """,""waterfall_id"":""afa78a13-9d2c-4d75-b681-0eb53a043b31""}", ParameterType.RequestBody)
+        Dim Headers = RestClient.Execute(RestRequest)
+        Dim Response As String = Headers.Content
+        Console.WriteLine(Response)
+        Return Response
+    End Function

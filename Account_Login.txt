@@ -1,0 +1,20 @@
+   Function Accounts_Login(username As String, password As String) As String
+        ' Need username and password
+        Dim RestClient As New RestClient("https://i.instagram.com/")
+        Dim RestRequest As New RestRequest("api/v1/accounts/login/", Method.POST)
+        RestClient.UserAgent = "Instagram 172.0.0.21.123 Android (25/7.1.2; 192dpi; 720x1280; google; G011A; G011A; qcom; en_US; 269790795)"
+        RestClient.AddDefaultHeader("X-IG-Connection-Type", "WIFI")
+        RestClient.AddDefaultHeader("X-IG-Capabilities", "3brTvx8=")
+        RestClient.AddDefaultHeader("Accept-Language", "en-US")
+        RestClient.AddDefaultHeader("X-MID", "YDieZAABAAFQca-B7sAgwxOVyIHu")
+        RestClient.AddDefaultHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+        RestClient.AddDefaultHeader("Accept-Encoding", "gzip, deflate")
+        RestClient.AddDefaultHeader("Host", "i.instagram.com")
+        RestRequest.AddCookie("csrftoken", "PfBZKwrU4T3kEN2pF7RY2cGIgzjghgpF")
+        RestRequest.AddCookie("mid", "YDieZAABAAFQca-B7sAgwxOVyIHu")
+        RestRequest.AddParameter("", "signed_body=SIGNATURE.{""jazoest"":""22485"",""country_codes"":""[{\""country_code\"":\""1\"",\""source\"":[\""default\""]},{\""country_code\"":\""966\"",\""source\"":[\""sim\""]}]"",""phone_id"":""c7f67c11-f472-49fa-a2f2-58fd6e81cd65"",""enc_password"":""#PWD_INSTAGRAM:0:1614329314:" + password + """,""_csrftoken"":""cASrnGwi3PwqQjyBBdqjOfcM2isSWMeq"",""username"":""" + username + """,""adid"":""c5146497-a402-4759-a4c7-08f9362fe1c1"",""guid"":""87a02318-7663-4231-ad8c-9f51a1b0a0b9"",""device_id"":""android-b994ff2e09c9ff83"",""google_tokens"":""[]"",""login_attempt_count"":""0""}", ParameterType.RequestBody)
+        Dim Headers = RestClient.Execute(RestRequest)
+        Dim Response As String = Headers.Content
+        Console.WriteLine(Response)
+        Return Response
+    End Function

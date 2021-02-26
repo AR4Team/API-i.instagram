@@ -1,0 +1,24 @@
+Function Set_biography(BIO As String) As String
+        ' Need Login in your account and username
+        Dim RestClient As New RestClient("https://i.instagram.com/")
+        Dim RestRequest As New RestRequest("api/v1/accounts/set_biography/", Method.POST)
+        RestClient.UserAgent = "Instagram 172.0.0.21.123 Android (25/7.1.2; 192dpi; 720x1280; google; G011A; G011A; qcom; en_US; 269790795)"
+        RestClient.AddDefaultHeader("X-IG-Connection-Type", "WIFI")
+        RestClient.AddDefaultHeader("X-IG-Capabilities", "3brTvx8=")
+        RestClient.AddDefaultHeader("Accept-Language", "en-US")
+        RestClient.AddDefaultHeader("X-MID", "YDieZAABAAFQca-B7sAgwxOVyIHu")
+        RestClient.AddDefaultHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+        RestClient.AddDefaultHeader("Accept-Encoding", "gzip, deflate")
+        RestClient.AddDefaultHeader("Host", "i.instagram.com")
+        RestRequest.AddCookie("csrftoken", "PfBZKwrU4T3kEN2pF7RY2cGIgzjghgpF")
+        RestRequest.AddCookie("sessionid", "")
+        RestRequest.AddCookie("mid", "YDieZAABAAFQca-B7sAgwxOVyIHu")
+        RestRequest.AddCookie("ig_direct_region_hint", "FRC")
+        RestRequest.AddCookie("rur", "FTW")
+        RestRequest.AddCookie("ds_user_id", "")
+        RestRequest.AddParameter("", "signed_body=SIGNATURE.{""_csrftoken"":""4lDAn0P4o9iTT8xZaB2yPberpWYE0Y3K"",""_uid"":""your user id"",""device_id"":""android-b994ff2e09c9ff83"",""_uuid"":""87a02318-7663-4231-ad8c-9f51a1b0a0b9"",""raw_text"":""your new bio""}", ParameterType.RequestBody)
+        Dim Headers = RestClient.Execute(RestRequest)
+        Dim Response As String = Headers.Content
+        Console.WriteLine(Response)
+        Return Response
+    End Function

@@ -1,0 +1,24 @@
+    Function Delete_Post(PostId As String) As String
+        ' Need Login in your account and user id and post id from Function Get post id
+        Dim RestClient As New RestClient("https://i.instagram.com/")
+        Dim RestRequest As New RestRequest("api/v1/media/" + PostId + "/delete/", Method.POST)
+        RestClient.UserAgent = "Instagram 172.0.0.21.123 Android (25/7.1.2; 192dpi; 720x1280; google; G011A; G011A; qcom; en_US; 269790795)"
+        RestClient.AddDefaultHeader("X-IG-Connection-Type", "WIFI")
+        RestClient.AddDefaultHeader("X-IG-Capabilities", "3brTvx8=")
+        RestClient.AddDefaultHeader("Accept-Language", "en-US")
+        RestClient.AddDefaultHeader("X-MID", "YDieZAABAAFQca-B7sAgwxOVyIHu")
+        RestClient.AddDefaultHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+        RestClient.AddDefaultHeader("Accept-Encoding", "gzip, deflate")
+        RestClient.AddDefaultHeader("Host", "i.instagram.com")
+        RestRequest.AddCookie("csrftoken", "PfBZKwrU4T3kEN2pF7RY2cGIgzjghgpF")
+        RestRequest.AddCookie("sessionid", "")
+        RestRequest.AddCookie("mid", "YDieZAABAAFQca-B7sAgwxOVyIHu")
+        RestRequest.AddCookie("ig_direct_region_hint", "FRC")
+        RestRequest.AddCookie("rur", "FTW")
+        RestRequest.AddCookie("ds_user_id", "")
+        RestRequest.AddParameter("", "signed_body=SIGNATURE.{""igtv_feed_preview"":""false"",""media_id"":""" + PostId + """,""_csrftoken"":""Bj6w3NQz5uxR8XOB6gRpb0KM1GzG76zj"",""_uid"":""your user id"",""_uuid"":""87a02318-7663-4231-ad8c-9f51a1b0a0b9""}", ParameterType.RequestBody)
+        Dim Headers = RestClient.Execute(RestRequest)
+        Dim Response As String = Headers.Content
+        Console.WriteLine(Response)
+        Return Response
+    End Function

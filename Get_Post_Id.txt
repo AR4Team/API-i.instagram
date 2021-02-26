@@ -1,0 +1,23 @@
+   Function Get_Post_Id(ID As String) As String
+        ' Need Login in your account and user id
+        Dim RestClient As New RestClient("https://i.instagram.com/")
+        Dim RestRequest As New RestRequest("api/v1/feed/user/" + ID + "/?exclude_comment=true&only_fetch_first_carousel_media=false", Method.GET)
+        RestClient.UserAgent = "Instagram 172.0.0.21.123 Android (25/7.1.2; 192dpi; 720x1280; google; G011A; G011A; qcom; en_US; 269790795)"
+        RestClient.AddDefaultHeader("X-IG-Connection-Type", "WIFI")
+        RestClient.AddDefaultHeader("X-IG-Capabilities", "3brTvx8=")
+        RestClient.AddDefaultHeader("Accept-Language", "en-US")
+        RestClient.AddDefaultHeader("X-MID", "YDieZAABAAFQca-B7sAgwxOVyIHu")
+        RestClient.AddDefaultHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8")
+        RestClient.AddDefaultHeader("Accept-Encoding", "gzip, deflate")
+        RestClient.AddDefaultHeader("Host", "i.instagram.com")
+        RestRequest.AddCookie("csrftoken", "PfBZKwrU4T3kEN2pF7RY2cGIgzjghgpF")
+        RestRequest.AddCookie("sessionid", "")
+        RestRequest.AddCookie("mid", "YDieZAABAAFQca-B7sAgwxOVyIHu")
+        RestRequest.AddCookie("ig_direct_region_hint", "FRC")
+        RestRequest.AddCookie("rur", "FTW")
+        RestRequest.AddCookie("ds_user_id", "")
+        Dim Headers = RestClient.Execute(RestRequest)
+        Dim Response As String = Headers.Content
+        Console.WriteLine(Response)
+        Return Response
+    End Function
